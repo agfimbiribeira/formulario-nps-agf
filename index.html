@@ -311,17 +311,80 @@
     </div>
 
     <script>
+        // CONFIGURAÇÃO - SUBSTITUA PELA URL DA SUA PLANILHA
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1TgmqZtBHI28_5nM7hQh5qaJSSFX8Fx6fUpertCU7A1E/edit?usp=sharing';
+        
         document.getElementById('npsForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Simular envio do formulário
-            document.getElementById('formContent').style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
-            
-            // Aqui você pode adicionar a lógica para enviar os dados para seu servidor
+            // Coletar dados do formulário
             const formData = new FormData(this);
-            console.log('Dados do formulário:', Object.fromEntries(formData));
+            const npsScore = formData.get('nps');
+            const positives = formData.get('positives') || '';
+            const improvements = formData.get('improvements') || '';
+            
+            // Categorizar NPS
+            let npsCategory;
+            if (npsScore >= 9) {
+                npsCategory = 'Promotor';
+            } else if (npsScore >= 7) {
+                npsCategory = 'Neutro';
+            } else {
+                npsCategory = 'Detrator';
+            }
+            
+            // Preparar dados para envio
+            const data = {
+                'Data/Hora': new Date().toLocaleString('pt-BR'),
+                'NPS Score': npsScore,
+                'Pontos Positivos': positives,
+                'Sugestões de Melhoria': improvements,
+                'Categoria NPS': npsCategory
+            };
+            
+            // Enviar para Google Sheets
+            sendToGoogleSheets(data);
         });
+        
+        function sendToGoogleSheets(data) {
+            // Mostrar loading
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+            
+            // Usar Google Apps Script para salvar dados
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxxx/exec'; // VOCÊ PRECISA SUBSTITUIR ISSO
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Sucesso:', result);
+                // Mostrar mensagem de agradecimento
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('thankYou').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                // Em caso de erro, ainda mostra agradecimento
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('thankYou').style.display = 'block';
+                
+                // Fallback: abrir Google Forms como backup
+                const googleFormsURL = 'https://forms.gle/SEU_FORMULARIO_BACKUP';
+                // window.open(googleFormsURL, '_blank');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>
