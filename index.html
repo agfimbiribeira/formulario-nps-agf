@@ -11,12 +11,7 @@
             --cor-azul-claro-correios: #0083CA;
             --cor-amarelo-hover: #e6c200;
             --cor-fundo: #f0f2f5;
-            --cor-texto: #333;
-            --cor-container: #ffffff;
-            --cor-sucesso: #28a745;
-            --cor-erro: #dc3545;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--cor-fundo);
@@ -28,9 +23,8 @@
             padding: 1em;
             box-sizing: border-box;
         }
-
         .container {
-            background: var(--cor-container);
+            background: white;
             padding: 2.5em;
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -38,220 +32,97 @@
             max-width: 550px;
             text-align: center;
         }
-
-        h1 {
-            color: var(--cor-azul-correios);
-            font-size: 1.8em;
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 0.5em;
-        }
-
-        .subtitulo {
-            color: #555;
-            margin-bottom: 2em;
-            font-size: 1.1em;
-        }
-
-        .form-group {
-            margin-bottom: 1.5em;
-            text-align: left;
-        }
-        
-        /* Estilo para as perguntas de feedback que aparecem e desaparecem */
-        .feedback-question {
-            text-align: left;
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            transition: max-height 0.5s ease-out, opacity 0.5s ease-in-out, margin-bottom 0.5s ease-out;
-            margin-bottom: 0;
-        }
-
-        /* Classe para tornar a pergunta visível */
-        .feedback-question.visible {
-            max-height: 500px; /* Altura suficiente para qualquer conteúdo */
-            opacity: 1;
-            margin-bottom: 1.5em;
-        }
-
-
-        label {
-            display: block;
-            margin-bottom: 0.7em;
-            font-weight: 600;
-            color: var(--cor-texto);
-        }
-
-        input[type="number"],
-        textarea {
-            width: 100%;
-            padding: 0.9em;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 1em;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        input[type="number"]:focus,
-        textarea:focus {
-            border-color: var(--cor-azul-claro-correios);
-            box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.25);
-            outline: none;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        button {
-            width: 100%;
-            padding: 1em;
-            background-color: var(--cor-amarelo-correios);
-            color: var(--cor-azul-correios);
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background-color: var(--cor-amarelo-hover);
-            transform: translateY(-2px);
-        }
-        
-        button:disabled {
-            background-color: #ccc;
-            color: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        #message {
-            text-align: center;
-            margin-top: 1.5em;
-            font-weight: bold;
-            min-height: 1.2em;
-            font-size: 1.1em;
-        }
-
-        .success { color: var(--cor-sucesso); }
-        .error { color: var(--cor-erro); }
+        h1 { color: var(--cor-azul-correios); font-size: 1.8em; margin-top: 0; margin-bottom: 0.5em; }
+        .subtitulo { color: #555; margin-bottom: 2em; font-size: 1.1em; }
+        .form-group { margin-bottom: 1.5em; text-align: left; }
+        .feedback-question { text-align: left; overflow: hidden; max-height: 0; opacity: 0; transition: all 0.5s ease-in-out; margin-bottom: 0; }
+        .feedback-question.visible { max-height: 500px; opacity: 1; margin-bottom: 1.5em; }
+        label { display: block; margin-bottom: 0.7em; font-weight: 600; color: #333; }
+        input[type="number"], textarea { width: 100%; padding: 0.9em; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; transition: all 0.3s; }
+        input[type="number"]:focus, textarea:focus { border-color: var(--cor-azul-claro-correios); box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.25); outline: none; }
+        textarea { resize: vertical; min-height: 100px; display: none; }
+        button { width: 100%; padding: 1em; background-color: var(--cor-amarelo-correios); color: var(--cor-azul-correios); border: none; border-radius: 6px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        button:hover { background-color: var(--cor-amarelo-hover); transform: translateY(-2px); }
+        button:disabled { background-color: #ccc; color: #666; cursor: not-allowed; transform: none; }
+        #message { text-align: center; margin-top: 1.5em; font-weight: bold; min-height: 1.2em; font-size: 1.1em; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>AGF BAIRRO IMBIRIBEIRA</h1>
         <p class="subtitulo">Pesquisa de Satisfação (NPS)</p>
-
         <form id="npsForm">
-            <!-- Pergunta Principal (NPS Score) -->
             <div class="form-group">
                 <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa agência?</label>
-                <input type="number" id="npsScore" name="npsScore" min="0" max="10" required>
+                <input type="number" id="npsScore" name="NPS Score" min="0" max="10" required>
             </div>
-
-            <!-- Pergunta para Detratores (Nota 0-6) -->
-            <div id="detractorQuestion" class="feedback-question">
-                <label for="feedbackDetractor">Lamentamos não ter atingido suas expectativas. Para nos ajudar a corrigir e melhorar, qual foi o principal motivo para a sua nota?</label>
-                <textarea id="feedbackDetractor" name="feedbackDetractor"></textarea>
+            <div id="feedbackContainer">
+                <div id="detractorQuestion" class="feedback-question"><label for="feedbackText">Lamentamos não ter atingido suas expectativas. Para nos ajudar a corrigir, qual foi o principal motivo da sua nota?</label></div>
+                <div id="neutralQuestion" class="feedback-question"><label for="feedbackText">Agradecemos seu feedback! O que poderíamos ter feito para que sua experiência fosse um 10?</label></div>
+                <div id="promoterQuestion" class="feedback-question"><label for="feedbackText">Ficamos muito felizes com a sua nota! O que mais te agradou em sua visita?</label></div>
+                <textarea id="feedbackText" name="Feedback"></textarea>
             </div>
-
-            <!-- Pergunta para Neutros (Nota 7-8) -->
-            <div id="neutralQuestion" class="feedback-question">
-                <label for="feedbackNeutral">Agradecemos seu feedback! O que poderíamos ter feito para que sua experiência fosse um 10?</label>
-                <textarea id="feedbackNeutral" name="feedbackNeutral"></textarea>
-            </div>
-
-            <!-- Pergunta para Promotores (Nota 9-10) -->
-            <div id="promoterQuestion" class="feedback-question">
-                <label for="feedbackPromoter">Ficamos muito felizes com a sua nota! O que mais te agradou em sua visita à nossa agência?</label>
-                <textarea id="feedbackPromoter" name="feedbackPromoter"></textarea>
-            </div>
-
             <button type="submit" id="submitButton">Enviar Resposta</button>
             <p id="message"></p>
         </form>
     </div>
-
     <script>
         const form = document.getElementById('npsForm');
         const npsScoreInput = document.getElementById('npsScore');
         const submitButton = document.getElementById('submitButton');
         const messageDiv = document.getElementById('message');
-
         const detractorDiv = document.getElementById('detractorQuestion');
         const neutralDiv = document.getElementById('neutralQuestion');
         const promoterDiv = document.getElementById('promoterQuestion');
+        const feedbackTextarea = document.getElementById('feedbackText');
         
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec';
+        // SUA NOVA URL JÁ ESTÁ INSERIDA AQUI!
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxkRXyBMcjeM3yUar151pCdPIM3ilmiKqsKhX-79HeMu6CT1gbQ-SpTe6iwduCWosBq1w/exec'; 
 
-        // Função para mostrar a pergunta correta com base na nota
-        npsScoreInput.addEventListener('input', () => {
+        npsScoreInput.addEventListener('change', () => {
             const score = parseInt(npsScoreInput.value);
-
-            // Esconde todas as perguntas primeiro
             detractorDiv.classList.remove('visible');
             neutralDiv.classList.remove('visible');
             promoterDiv.classList.remove('visible');
-
-            // Mostra a pergunta correta
-            if (score >= 0 && score <= 6) {
-                detractorDiv.classList.add('visible');
-            } else if (score >= 7 && score <= 8) {
-                neutralDiv.classList.add('visible');
-            } else if (score >= 9 && score <= 10) {
-                promoterDiv.classList.add('visible');
+            feedbackTextarea.style.display = 'none';
+            if (score >= 0 && score <= 10) {
+                feedbackTextarea.style.display = 'block';
+                if (score <= 6) { detractorDiv.classList.add('visible'); } 
+                else if (score <= 8) { neutralDiv.classList.add('visible'); } 
+                else { promoterDiv.classList.add('visible'); }
             }
         });
-
         form.addEventListener('submit', e => {
             e.preventDefault();
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
             messageDiv.textContent = '';
-            
-            const formData = new FormData();
+            const formData = new FormData(form);
             const npsValue = npsScoreInput.value;
             let npsCategory = '';
-            let feedbackText = '';
-
-            // Define a categoria e pega o texto da caixa de feedback visível
-            const score = parseInt(npsValue);
-            if (score >= 9) {
-                npsCategory = 'Promotor';
-                feedbackText = document.getElementById('feedbackPromoter').value;
-            } else if (score >= 7) {
-                npsCategory = 'Neutro';
-                feedbackText = document.getElementById('feedbackNeutral').value;
-            } else {
-                npsCategory = 'Detrator';
-                feedbackText = document.getElementById('feedbackDetractor').value;
-            }
-
-            // Monta os dados para enviar para a planilha
+            if (npsValue >= 9) npsCategory = 'Promotor';
+            else if (npsValue >= 7) npsCategory = 'Neutro';
+            else npsCategory = 'Detrator';
             formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-            formData.append('NPS Score', npsValue);
             formData.append('Categoria NPS', npsCategory);
-            formData.append('Feedback', feedbackText); // Envia o feedback para a nova coluna única
-
             fetch(scriptURL, { method: 'POST', body: formData })
-                .then(response => {
-                    messageDiv.textContent = 'Obrigado pela sua resposta!';
-                    messageDiv.className = 'success';
-                    form.reset();
-                    // Esconde as perguntas de feedback após o envio bem-sucedido
-                    detractorDiv.classList.remove('visible');
-                    neutralDiv.classList.remove('visible');
-                    promoterDiv.classList.remove('visible');
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        messageDiv.textContent = 'Obrigado pela sua resposta!';
+                        messageDiv.className = 'success';
+                        form.reset();
+                        detractorDiv.classList.remove('visible');
+                        neutralDiv.classList.remove('visible');
+                        promoterDiv.classList.remove('visible');
+                        feedbackTextarea.style.display = 'none';
+                    } else { throw new Error(data.message || 'Erro desconhecido.'); }
                 })
                 .catch(error => {
-                    console.error('Erro no Fetch:', error);
-                    messageDiv.textContent = 'Erro ao enviar. Tente novamente mais tarde.';
+                    console.error('Erro:', error);
+                    messageDiv.textContent = 'Erro ao enviar. Tente novamente.';
                     messageDiv.className = 'error';
                 })
                 .finally(() => {
