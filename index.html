@@ -3,29 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de NPS</title>
+    <title>Formulário de NPS - AGF Bairro Imbiribeira</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1em; box-sizing: border-box; }
-        .container { background: white; padding: 2em; border-radius: 8px; box-shadow: 0 4px S12px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
-        h1 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 1.5em; }
-        label { display: block; margin-bottom: 0.5em; font-weight: bold; color: #555; }
-        input[type="number"], textarea { width: 100%; padding: 0.8em; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1em; }
-        textarea { resize: vertical; min-height: 100px; }
-        button { width: 100%; padding: 1em; background-color: #007BFF; color: white; border: none; border-radius: 4px; font-size: 1em; cursor: pointer; transition: background-color 0.3s; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        button:disabled { background-color: #ccc; cursor: not-allowed; }
-        #message { text-align: center; margin-top: 1em; font-weight: bold; min-height: 1.2em; }
-        .success { color: green; }
-        .error { color: red; }
+        /* Cores dos Correios */
+        :root {
+            --cor-amarelo-correios: #FFDE00;
+            --cor-azul-correios: #004AAD;
+            --cor-amarelo-hover: #e6c600; /* Um tom mais escuro para o hover */
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #f4f4f4; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 1em; 
+            box-sizing: border-box; 
+        }
+        .container { 
+            background: white; 
+            padding: 2em; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 500px; 
+            text-align: center; /* Centraliza o conteúdo do container */
+        }
+        h1 { 
+            font-size: 1.8em;
+            color: var(--cor-azul-correios); /* Cor do título alterada */
+            margin-bottom: 5px;
+        }
+        .subtitulo {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 1.5em;
+        }
+        .form-group { 
+            margin-bottom: 1.5em; 
+            text-align: left; /* Alinha labels e campos à esquerda */
+        }
+        label { 
+            display: block; 
+            margin-bottom: 0.5em; 
+            font-weight: bold; 
+            color: #555; 
+        }
+        input[type="number"], textarea { 
+            width: 100%; 
+            padding: 0.8em; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+            font-size: 1em; 
+        }
+        textarea { 
+            resize: vertical; 
+            min-height: 100px; 
+        }
+        button { 
+            width: 100%; 
+            padding: 1em; 
+            background-color: var(--cor-amarelo-correios); /* Cor do botão alterada */
+            color: var(--cor-azul-correios); /* Cor do texto do botão alterada */
+            border: none; 
+            border-radius: 4px; 
+            font-size: 1.1em; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+            font-weight: bold; 
+        }
+        button:hover { 
+            background-color: var(--cor-amarelo-hover); /* Efeito hover alterado */
+        }
+        button:disabled { 
+            background-color: #ccc; 
+            color: #666;
+            cursor: not-allowed; 
+        }
+        #message { 
+            text-align: center; 
+            margin-top: 1em; 
+            font-weight: bold; 
+            min-height: 1.2em; 
+            font-size: 1.1em;
+        }
+        .success { color: #28a745; } /* Verde para sucesso */
+        .error { color: #dc3545; } /* Vermelho para erro */
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Pesquisa de Satisfação (NPS)</h1>
+        <h1>AGF BAIRRO IMBIRIBEIRA</h1>
+        <p class="subtitulo">Pesquisa de Satisfação (NPS)</p>
+
         <form id="npsForm">
             <div class="form-group">
-                <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa empresa?</label>
+                <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa agência?</label>
                 <input type="number" id="npsScore" name="npsScore" min="0" max="10" required>
             </div>
             <div class="form-group">
@@ -47,7 +124,7 @@
         const messageDiv = document.getElementById('message');
         
         // URL do seu webhook do Google Apps Script
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec'; // <-- SUA URL JÁ ESTÁ AQUI!
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec';
 
         form.addEventListener('submit', e => {
             e.preventDefault(); 
