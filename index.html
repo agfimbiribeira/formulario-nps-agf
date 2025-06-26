@@ -311,17 +311,14 @@
     </div>
 
     <script>
-        // CONFIGURAÇÃO - SUBSTITUA PELA URL DA SUA PLANILHA
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1TgmqZtBHI28_5nM7hQh5qaJSSFX8Fx6fUpertCU7A1E/edit?usp=sharing';
-        
         document.getElementById('npsForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Coletar dados do formulário
             const formData = new FormData(this);
-            const npsScore = formData.get('nps');
-            const positives = formData.get('positives') || '';
-            const improvements = formData.get('improvements') || '';
+            const npsScore = parseInt(formData.get('nps'));
+            const positives = formData.get('positives') || 'Não informado';
+            const improvements = formData.get('improvements') || 'Não informado';
             
             // Categorizar NPS
             let npsCategory;
@@ -335,7 +332,13 @@
             
             // Preparar dados para envio
             const data = {
-                'Data/Hora': new Date().toLocaleString('pt-BR'),
+                'Data/Hora': new Date().toLocaleString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
                 'NPS Score': npsScore,
                 'Pontos Positivos': positives,
                 'Sugestões de Melhoria': improvements,
@@ -353,38 +356,53 @@
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
             
-            // Usar Google Apps Script para salvar dados
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxxx/exec'; // VOCÊ PRECISA SUBSTITUIR ISSO
+            // ⚠️ SUBSTITUA PELA URL DO SEU WEBHOOK DO GOOGLE APPS SCRIPT
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec';
+            
+            console.log('Enviando dados:', data);
             
             fetch(scriptURL, {
                 method: 'POST',
-                body: JSON.stringify(data),
+                mode: 'no-cors', // Importante para Google Apps Script
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
+                body: JSON.stringify(data)
             })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Sucesso:', result);
+            .then(() => {
+                console.log('Dados enviados com sucesso!');
                 // Mostrar mensagem de agradecimento
                 document.getElementById('formContent').style.display = 'none';
                 document.getElementById('thankYou').style.display = 'block';
+                
+                // Limpar formulário
+                document.getElementById('npsForm').reset();
             })
             .catch(error => {
-                console.error('Erro:', error);
-                // Em caso de erro, ainda mostra agradecimento
+                console.error('Erro ao enviar:', error);
+                // Mesmo com erro, mostra agradecimento (pois pode ter funcionado)
                 document.getElementById('formContent').style.display = 'none';
                 document.getElementById('thankYou').style.display = 'block';
-                
-                // Fallback: abrir Google Forms como backup
-                const googleFormsURL = 'https://forms.gle/SEU_FORMULARIO_BACKUP';
-                // window.open(googleFormsURL, '_blank');
             })
             .finally(() => {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             });
         }
+        
+        // Botão para voltar ao formulário na tela de agradecimento
+        document.addEventListener('DOMContentLoaded', function() {
+            const thankYou = document.getElementById('thankYou');
+            const backButton = document.createElement('button');
+            backButton.textContent = 'Enviar Nova Avaliação';
+            backButton.className = 'submit-btn';
+            backButton.style.marginTop = '20px';
+            backButton.onclick = function() {
+                document.getElementById('thankYou').style.display = 'none';
+                document.getElementById('formContent').style.display = 'block';
+            };
+            thankYou.appendChild(backButton);
+        });
     </script>
 </body>
 </html>
