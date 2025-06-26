@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NPS - AGF BAIRRO IMBIRIBEIRA</title>
     <style>
-        /* Cores oficiais dos Correios (fornecidas por você) */
         :root {
-            --cor-azul-correios: #00416B;      /* Azul principal */
-            --cor-amarelo-correios: #FFDA00;   /* Amarelo principal */
-            --cor-azul-claro-correios: #0083CA; /* Azul claro para destaques */
-            --cor-amarelo-hover: #e6c200;      /* Amarelo um pouco mais escuro para o botão */
+            --cor-azul-correios: #00416B;
+            --cor-amarelo-correios: #FFDA00;
+            --cor-azul-claro-correios: #0083CA;
+            --cor-amarelo-hover: #e6c200;
             --cor-fundo: #f0f2f5;
             --cor-texto: #333;
             --cor-container: #ffffff;
@@ -58,6 +57,24 @@
             margin-bottom: 1.5em;
             text-align: left;
         }
+        
+        /* Estilo para as perguntas de feedback que aparecem e desaparecem */
+        .feedback-question {
+            text-align: left;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-in-out, margin-bottom 0.5s ease-out;
+            margin-bottom: 0;
+        }
+
+        /* Classe para tornar a pergunta visível */
+        .feedback-question.visible {
+            max-height: 500px; /* Altura suficiente para qualquer conteúdo */
+            opacity: 1;
+            margin-bottom: 1.5em;
+        }
+
 
         label {
             display: block;
@@ -77,11 +94,10 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* Usando o azul claro para o efeito de foco */
         input[type="number"]:focus,
         textarea:focus {
             border-color: var(--cor-azul-claro-correios);
-            box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.25); /* RGB de #0083CA com transparência */
+            box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.25);
             outline: none;
         }
 
@@ -133,18 +149,30 @@
         <p class="subtitulo">Pesquisa de Satisfação (NPS)</p>
 
         <form id="npsForm">
+            <!-- Pergunta Principal (NPS Score) -->
             <div class="form-group">
                 <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa agência?</label>
                 <input type="number" id="npsScore" name="npsScore" min="0" max="10" required>
             </div>
-            <div class="form-group">
-                <label for="pontosPositivos">Quais foram os pontos positivos?</label>
-                <textarea id="pontosPositivos" name="Pontos Positivos" placeholder="Opcional"></textarea>
+
+            <!-- Pergunta para Detratores (Nota 0-6) -->
+            <div id="detractorQuestion" class="feedback-question">
+                <label for="feedbackDetractor">Lamentamos não ter atingido suas expectativas. Para nos ajudar a corrigir e melhorar, qual foi o principal motivo para a sua nota?</label>
+                <textarea id="feedbackDetractor" name="feedbackDetractor"></textarea>
             </div>
-            <div class="form-group">
-                <label for="sugestoesMelhoria">O que podemos melhorar?</label>
-                <textarea id="sugestoesMelhoria" name="Sugestões de Melhoria" placeholder="Opcional"></textarea>
+
+            <!-- Pergunta para Neutros (Nota 7-8) -->
+            <div id="neutralQuestion" class="feedback-question">
+                <label for="feedbackNeutral">Agradecemos seu feedback! O que poderíamos ter feito para que sua experiência fosse um 10?</label>
+                <textarea id="feedbackNeutral" name="feedbackNeutral"></textarea>
             </div>
+
+            <!-- Pergunta para Promotores (Nota 9-10) -->
+            <div id="promoterQuestion" class="feedback-question">
+                <label for="feedbackPromoter">Ficamos muito felizes com a sua nota! O que mais te agradou em sua visita à nossa agência?</label>
+                <textarea id="feedbackPromoter" name="feedbackPromoter"></textarea>
+            </div>
+
             <button type="submit" id="submitButton">Enviar Resposta</button>
             <p id="message"></p>
         </form>
@@ -152,9 +180,34 @@
 
     <script>
         const form = document.getElementById('npsForm');
+        const npsScoreInput = document.getElementById('npsScore');
         const submitButton = document.getElementById('submitButton');
         const messageDiv = document.getElementById('message');
+
+        const detractorDiv = document.getElementById('detractorQuestion');
+        const neutralDiv = document.getElementById('neutralQuestion');
+        const promoterDiv = document.getElementById('promoterQuestion');
+        
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec';
+
+        // Função para mostrar a pergunta correta com base na nota
+        npsScoreInput.addEventListener('input', () => {
+            const score = parseInt(npsScoreInput.value);
+
+            // Esconde todas as perguntas primeiro
+            detractorDiv.classList.remove('visible');
+            neutralDiv.classList.remove('visible');
+            promoterDiv.classList.remove('visible');
+
+            // Mostra a pergunta correta
+            if (score >= 0 && score <= 6) {
+                detractorDiv.classList.add('visible');
+            } else if (score >= 7 && score <= 8) {
+                neutralDiv.classList.add('visible');
+            } else if (score >= 9 && score <= 10) {
+                promoterDiv.classList.add('visible');
+            }
+        });
 
         form.addEventListener('submit', e => {
             e.preventDefault();
@@ -162,26 +215,39 @@
             submitButton.textContent = 'Enviando...';
             messageDiv.textContent = '';
             
-            const formData = new FormData(form);
-            
-            const npsValue = parseInt(document.getElementById('npsScore').value);
+            const formData = new FormData();
+            const npsValue = npsScoreInput.value;
             let npsCategory = '';
+            let feedbackText = '';
 
-            if (npsValue >= 9) npsCategory = 'Promotor';
-            else if (npsValue >= 7) npsCategory = 'Neutro';
-            else npsCategory = 'Detrator';
+            // Define a categoria e pega o texto da caixa de feedback visível
+            const score = parseInt(npsValue);
+            if (score >= 9) {
+                npsCategory = 'Promotor';
+                feedbackText = document.getElementById('feedbackPromoter').value;
+            } else if (score >= 7) {
+                npsCategory = 'Neutro';
+                feedbackText = document.getElementById('feedbackNeutral').value;
+            } else {
+                npsCategory = 'Detrator';
+                feedbackText = document.getElementById('feedbackDetractor').value;
+            }
 
+            // Monta os dados para enviar para a planilha
             formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
+            formData.append('NPS Score', npsValue);
             formData.append('Categoria NPS', npsCategory);
-            
+            formData.append('Feedback', feedbackText); // Envia o feedback para a nova coluna única
+
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    if (!response.ok && response.type !== 'opaque') {
-                       console.log('Resposta não-OK:', response);
-                    }
                     messageDiv.textContent = 'Obrigado pela sua resposta!';
                     messageDiv.className = 'success';
                     form.reset();
+                    // Esconde as perguntas de feedback após o envio bem-sucedido
+                    detractorDiv.classList.remove('visible');
+                    neutralDiv.classList.remove('visible');
+                    promoterDiv.classList.remove('visible');
                 })
                 .catch(error => {
                     console.error('Erro no Fetch:', error);
