@@ -35,6 +35,12 @@
         h1 { color: var(--cor-azul-correios); font-size: 1.8em; margin-top: 0; margin-bottom: 0.5em; }
         .subtitulo { color: #555; margin-bottom: 2em; font-size: 1.1em; }
         .form-group { margin-bottom: 1.5em; text-align: left; }
+        
+        /* CORREÇÃO DE ESPAÇAMENTO FEITA AQUI */
+        #feedbackContainer {
+            margin-bottom: 1.5em; /* Adiciona espaço entre a caixa de texto e o botão */
+        }
+        
         .feedback-question { text-align: left; overflow: hidden; max-height: 0; opacity: 0; transition: all 0.5s ease-in-out; margin-bottom: 0; }
         .feedback-question.visible { max-height: 500px; opacity: 1; margin-bottom: 1.5em; }
         label { display: block; margin-bottom: 0.7em; font-weight: 600; color: #333; }
@@ -77,8 +83,6 @@
         const neutralDiv = document.getElementById('neutralQuestion');
         const promoterDiv = document.getElementById('promoterQuestion');
         const feedbackTextarea = document.getElementById('feedbackText');
-        
-        // SUA NOVA URL JÁ ESTÁ INSERIDA AQUI!
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxkRXyBMcjeM3yUar151pCdPIM3ilmiKqsKhX-79HeMu6CT1gbQ-SpTe6iwduCWosBq1w/exec'; 
 
         npsScoreInput.addEventListener('change', () => {
