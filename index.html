@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Satisfação - AGF Correios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .form-content {
+            padding: 32px 24px;
+        }
+
+        .question {
+            margin-bottom: 32px;
+        }
+
+        .question-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1565c0;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .required {
+            color: #d32f2f;
+            margin-left: 4px;
+        }
+
+        .nps-scale {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nps-option {
+            position: relative;
+        }
+
+        .nps-option input[type="radio"] {
+            display: none;
+        }
+
+        .nps-option label {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e3f2fd;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #1565c0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nps-option input[type="radio"]:checked + label {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+            transform: scale(1.1);
+        }
+
+        .nps-option label:hover {
+            border-color: #1976d2;
+            background: #e3f2fd;
+        }
+
+        .nps-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 16px;
+            border: 2px solid #e3f2fd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: #1976d2;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.3);
+        }
+
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 48px 24px;
+            color: #1565c0;
+        }
+
+        .thank-you h2 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .thank-you p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .team-signature {
+            margin-top: 16px;
+            font-weight: 600;
+            color: #1976d2;
+        }
+
+        @media (max-width: 480px) {
+            .nps-scale {
+                justify-content: center;
+                gap: 4px;
+            }
+            
+            .nps-option label {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+            
+            .header {
+                padding: 24px 16px;
+            }
+            
+            .form-content {
+                padding: 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Como foi sua experiência com a nossa agência?</h1>
+            <p>Olá! 😊 Queremos saber como está sendo sua experiência com o atendimento da nossa agência dos Correios. Sua opinião é essencial para melhorarmos continuamente. Leva menos de 1 minuto!</p>
+        </div>
+
+        <div class="form-content" id="formContent">
+            <form id="npsForm">
+                <!-- Pergunta 1: NPS Score -->
+                <div class="question">
+                    <label class="question-label">
+                        De 0 a 10, o quanto você recomendaria nossa agência dos Correios para um amigo ou colega?
+                        <span class="required">*</span>
+                    </label>
+                    <div class="nps-scale">
+                        <div class="nps-option">
+                            <input type="radio" id="nps0" name="nps" value="0" required>
+                            <label for="nps0">0</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps1" name="nps" value="1">
+                            <label for="nps1">1</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps2" name="nps" value="2">
+                            <label for="nps2">2</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps3" name="nps" value="3">
+                            <label for="nps3">3</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps4" name="nps" value="4">
+                            <label for="nps4">4</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps5" name="nps" value="5">
+                            <label for="nps5">5</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps6" name="nps" value="6">
+                            <label for="nps6">6</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps7" name="nps" value="7">
+                            <label for="nps7">7</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps8" name="nps" value="8">
+                            <label for="nps8">8</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps9" name="nps" value="9">
+                            <label for="nps9">9</label>
+                        </div>
+                        <div class="nps-option">
+                            <input type="radio" id="nps10" name="nps" value="10">
+                            <label for="nps10">10</label>
+                        </div>
+                    </div>
+                    <div class="nps-labels">
+                        <span>Nada provável</span>
+                        <span>Muito provável</span>
+                    </div>
+                </div>
+
+                <!-- Pergunta 2: O que agradou -->
+                <div class="question">
+                    <label class="question-label" for="positives">
+                        O que mais te agradou no nosso atendimento?
+                    </label>
+                    <textarea 
+                        id="positives" 
+                        name="positives" 
+                        class="textarea" 
+                        placeholder="Conte-nos o que mais gostou...">
+                    </textarea>
+                </div>
+
+                <!-- Pergunta 3: Sugestões de melhoria -->
+                <div class="question">
+                    <label class="question-label" for="improvements">
+                        Existe algo que podemos melhorar para tornar sua experiência ainda melhor?
+                    </label>
+                    <textarea 
+                        id="improvements" 
+                        name="improvements" 
+                        class="textarea" 
+                        placeholder="Suas sugestões são muito importantes para nós...">
+                    </textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Enviar Feedback
+                </button>
+            </form>
+        </div>
+
+        <div class="thank-you" id="thankYou">
+            <h2>Obrigado por compartilhar sua opinião!</h2>
+            <p>Estamos sempre buscando evoluir para te atender cada vez melhor. 💙</p>
+            <div class="team-signature">
+                <strong>Equipe AGF</strong><br>
+                <em>Go Go Go SGP 🚀</em>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('npsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simular envio do formulário
+            document.getElementById('formContent').style.display = 'none';
+            document.getElementById('thankYou').style.display = 'block';
+            
+            // Aqui você pode adicionar a lógica para enviar os dados para seu servidor
+            const formData = new FormData(this);
+            console.log('Dados do formulário:', Object.fromEntries(formData));
+        });
+    </script>
+</body>
+</html>
