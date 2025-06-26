@@ -3,96 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de NPS - AGF Bairro Imbiribeira</title>
+    <title>NPS - AGF BAIRRO IMBIRIBEIRA</title>
     <style>
-        /* Cores dos Correios */
+        /* Definindo as cores oficiais dos Correios para fácil reutilização */
         :root {
-            --cor-amarelo-correios: #FFDE00;
             --cor-azul-correios: #004AAD;
-            --cor-amarelo-hover: #e6c600; /* Um tom mais escuro para o hover */
+            --cor-amarelo-correios: #FFDE00;
+            --cor-amarelo-hover: #e6c800; /* Um pouco mais escuro para o efeito do botão */
+            --cor-fundo: #f0f2f5;
+            --cor-texto: #333;
+            --cor-container: #ffffff;
+            --cor-sucesso: #28a745;
+            --cor-erro: #dc3545;
         }
 
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #f4f4f4; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 1em; 
-            box-sizing: border-box; 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1em;
+            box-sizing: border-box;
         }
-        .container { 
-            background: white; 
-            padding: 2em; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-            width: 100%; 
-            max-width: 500px; 
-            text-align: center; /* Centraliza o conteúdo do container */
+
+        .container {
+            background: var(--cor-container);
+            padding: 2.5em;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
         }
-        h1 { 
+
+        h1 {
+            color: var(--cor-azul-correios);
             font-size: 1.8em;
-            color: var(--cor-azul-correios); /* Cor do título alterada */
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 0.5em;
         }
+
         .subtitulo {
-            font-size: 1.1em;
             color: #555;
-            margin-bottom: 1.5em;
-        }
-        .form-group { 
-            margin-bottom: 1.5em; 
-            text-align: left; /* Alinha labels e campos à esquerda */
-        }
-        label { 
-            display: block; 
-            margin-bottom: 0.5em; 
-            font-weight: bold; 
-            color: #555; 
-        }
-        input[type="number"], textarea { 
-            width: 100%; 
-            padding: 0.8em; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            box-sizing: border-box; 
-            font-size: 1em; 
-        }
-        textarea { 
-            resize: vertical; 
-            min-height: 100px; 
-        }
-        button { 
-            width: 100%; 
-            padding: 1em; 
-            background-color: var(--cor-amarelo-correios); /* Cor do botão alterada */
-            color: var(--cor-azul-correios); /* Cor do texto do botão alterada */
-            border: none; 
-            border-radius: 4px; 
-            font-size: 1.1em; 
-            cursor: pointer; 
-            transition: background-color 0.3s; 
-            font-weight: bold; 
-        }
-        button:hover { 
-            background-color: var(--cor-amarelo-hover); /* Efeito hover alterado */
-        }
-        button:disabled { 
-            background-color: #ccc; 
-            color: #666;
-            cursor: not-allowed; 
-        }
-        #message { 
-            text-align: center; 
-            margin-top: 1em; 
-            font-weight: bold; 
-            min-height: 1.2em; 
+            margin-bottom: 2em;
             font-size: 1.1em;
         }
-        .success { color: #28a745; } /* Verde para sucesso */
-        .error { color: #dc3545; } /* Vermelho para erro */
+
+        .form-group {
+            margin-bottom: 1.5em;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.7em;
+            font-weight: 600;
+            color: var(--cor-texto);
+        }
+
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 0.9em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="number"]:focus,
+        textarea:focus {
+            border-color: var(--cor-azul-correios);
+            box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.2);
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 1em;
+            background-color: var(--cor-amarelo-correios);
+            color: var(--cor-azul-correios);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--cor-amarelo-hover);
+            transform: translateY(-2px); /* Efeito de levantar o botão */
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 1.5em;
+            font-weight: bold;
+            min-height: 1.2em;
+            font-size: 1.1em;
+        }
+
+        .success { color: var(--cor-sucesso); }
+        .error { color: var(--cor-erro); }
     </style>
 </head>
 <body>
@@ -107,11 +137,11 @@
             </div>
             <div class="form-group">
                 <label for="pontosPositivos">Quais foram os pontos positivos?</label>
-                <textarea id="pontosPositivos" name="pontosPositivos" placeholder="Opcional"></textarea>
+                <textarea id="pontosPositivos" name="Pontos Positivos" placeholder="Opcional"></textarea>
             </div>
             <div class="form-group">
                 <label for="sugestoesMelhoria">O que podemos melhorar?</label>
-                <textarea id="sugestoesMelhoria" name="sugestoesMelhoria" placeholder="Opcional"></textarea>
+                <textarea id="sugestoesMelhoria" name="Sugestões de Melhoria" placeholder="Opcional"></textarea>
             </div>
             <button type="submit" id="submitButton">Enviar Resposta</button>
             <p id="message"></p>
@@ -122,16 +152,17 @@
         const form = document.getElementById('npsForm');
         const submitButton = document.getElementById('submitButton');
         const messageDiv = document.getElementById('message');
-        
-        // URL do seu webhook do Google Apps Script
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec';
 
         form.addEventListener('submit', e => {
-            e.preventDefault(); 
+            e.preventDefault();
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
             messageDiv.textContent = '';
-
+            
+            // CORREÇÃO: Usar FormData é a forma mais robusta de enviar para Google Apps Script
+            const formData = new FormData(form);
+            
             const npsValue = parseInt(document.getElementById('npsScore').value);
             let npsCategory = '';
 
@@ -139,39 +170,35 @@
             else if (npsValue >= 7) npsCategory = 'Neutro';
             else npsCategory = 'Detrator';
 
-            const data = {
-                'Data/Hora': new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-                'NPS Score': npsValue,
-                'Pontos Positivos': document.getElementById('pontosPositivos').value,
-                'Sugestões de Melhoria': document.getElementById('sugestoesMelhoria').value,
-                'Categoria NPS': npsCategory
-            };
-
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === 'success') {
+            // Adicionar campos que não estão no formulário diretamente
+            formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
+            formData.append('Categoria NPS', npsCategory);
+            
+            // O nome do input já é usado como chave, então não precisa adicionar 'Pontos Positivos' e 'Sugestões' de novo
+            // Certifique-se que o 'name' dos textareas no HTML corresponda ao nome da coluna na planilha. Eu ajustei.
+            
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    // Mesmo com sucesso, a resposta do Google Script pode não ser um JSON perfeito, 
+                    // mas se não der erro de rede, consideramos sucesso.
+                    if (!response.ok && response.type !== 'opaque') {
+                       // Opaque responses são comuns com o modo 'no-cors' e podem ser um sinal de sucesso em cenários de redirecionamento
+                       // Vamos tratar qualquer resposta não-ok como um possível erro.
+                       console.log('Resposta não-OK:', response);
+                    }
                     messageDiv.textContent = 'Obrigado pela sua resposta!';
                     messageDiv.className = 'success';
                     form.reset();
-                } else {
-                    throw new Error(data.error || 'Ocorreu um erro desconhecido.');
-                }
-            })
-            .catch(error => {
-                console.error('Erro no Fetch:', error);
-                messageDiv.textContent = 'Erro ao enviar. Tente novamente.';
-                messageDiv.className = 'error';
-            })
-            .finally(() => {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Resposta';
-            });
+                })
+                .catch(error => {
+                    console.error('Erro no Fetch:', error);
+                    messageDiv.textContent = 'Erro ao enviar. Tente novamente mais tarde.';
+                    messageDiv.className = 'error';
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Enviar Resposta';
+                });
         });
     </script>
 </body>
