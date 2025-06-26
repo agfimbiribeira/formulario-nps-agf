@@ -32,15 +32,26 @@
             max-width: 550px;
             text-align: center;
         }
-        h1 { color: var(--cor-azul-correios); font-size: 1.8em; margin-top: 0; margin-bottom: 0.5em; }
-        .subtitulo { color: #555; margin-bottom: 2em; font-size: 1.1em; }
-        .form-group { margin-bottom: 1.5em; text-align: left; }
-        
-        /* CORREÇÃO DE ESPAÇAMENTO FEITA AQUI */
-        #feedbackContainer {
-            margin-bottom: 1.5em; /* Adiciona espaço entre a caixa de texto e o botão */
+        h1 { 
+            color: var(--cor-azul-correios); 
+            font-size: 1.8em; 
+            margin-top: 0; 
+            margin-bottom: 0.5em; 
         }
-        
+        /* Estilo para a nova descrição */
+        .description { 
+            color: #555; 
+            margin-bottom: 2em; 
+            font-size: 1.1em;
+            line-height: 1.6; /* Melhora a legibilidade do parágrafo */
+        }
+        .form-group { 
+            margin-bottom: 1.5em; 
+            text-align: left; 
+        }
+        #feedbackContainer {
+            margin-bottom: 1.5em; /* Garante o espaçamento antes do botão */
+        }
         .feedback-question { text-align: left; overflow: hidden; max-height: 0; opacity: 0; transition: all 0.5s ease-in-out; margin-bottom: 0; }
         .feedback-question.visible { max-height: 500px; opacity: 1; margin-bottom: 1.5em; }
         label { display: block; margin-bottom: 0.7em; font-weight: 600; color: #333; }
@@ -57,8 +68,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>AGF BAIRRO IMBIRIBEIRA</h1>
-        <p class="subtitulo">Pesquisa de Satisfação (NPS)</p>
+        <!-- TEXTOS ATUALIZADOS AQUI -->
+        <h1>Como foi sua experiência com a nossa agência?</h1>
+        <p class="description">Olá! 😊 Queremos saber como foi sua experiência com o atendimento da <strong>AGF Bairro Imbiribeira</strong>. Sua opinião é essencial para melhorarmos continuamente. Leva menos de 1 minuto!</p>
+        
         <form id="npsForm">
             <div class="form-group">
                 <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa agência?</label>
