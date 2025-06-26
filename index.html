@@ -1,407 +1,100 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisa de Satisfação - AGF Correios</title>
+    <title>Formulário de NPS</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-            color: white;
-            padding: 32px 24px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .header p {
-            font-size: 16px;
-            line-height: 1.6;
-            opacity: 0.95;
-        }
-
-        .form-content {
-            padding: 32px 24px;
-        }
-
-        .question {
-            margin-bottom: 32px;
-        }
-
-        .question-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1565c0;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .required {
-            color: #d32f2f;
-            margin-left: 4px;
-        }
-
-        .nps-scale {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .nps-option {
-            position: relative;
-        }
-
-        .nps-option input[type="radio"] {
-            display: none;
-        }
-
-        .nps-option label {
-            display: block;
-            width: 40px;
-            height: 40px;
-            border: 2px solid #e3f2fd;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #1565c0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nps-option input[type="radio"]:checked + label {
-            background: #1976d2;
-            color: white;
-            border-color: #1976d2;
-            transform: scale(1.1);
-        }
-
-        .nps-option label:hover {
-            border-color: #1976d2;
-            background: #e3f2fd;
-        }
-
-        .nps-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #666;
-            margin-top: 8px;
-        }
-
-        .textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 16px;
-            border: 2px solid #e3f2fd;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-            transition: border-color 0.3s ease;
-        }
-
-        .textarea:focus {
-            outline: none;
-            border-color: #1976d2;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
-            color: white;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 16px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(25, 118, 210, 0.3);
-        }
-
-        .thank-you {
-            display: none;
-            text-align: center;
-            padding: 48px 24px;
-            color: #1565c0;
-        }
-
-        .thank-you h2 {
-            font-size: 24px;
-            margin-bottom: 16px;
-        }
-
-        .thank-you p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        .team-signature {
-            margin-top: 16px;
-            font-weight: 600;
-            color: #1976d2;
-        }
-
-        @media (max-width: 480px) {
-            .nps-scale {
-                justify-content: center;
-                gap: 4px;
-            }
-            
-            .nps-option label {
-                width: 32px;
-                height: 32px;
-                font-size: 12px;
-            }
-            
-            .header {
-                padding: 24px 16px;
-            }
-            
-            .form-content {
-                padding: 24px 16px;
-            }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1em; box-sizing: border-box; }
+        .container { background: white; padding: 2em; border-radius: 8px; box-shadow: 0 4px S12px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h1 { text-align: center; color: #333; }
+        .form-group { margin-bottom: 1.5em; }
+        label { display: block; margin-bottom: 0.5em; font-weight: bold; color: #555; }
+        input[type="number"], textarea { width: 100%; padding: 0.8em; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1em; }
+        textarea { resize: vertical; min-height: 100px; }
+        button { width: 100%; padding: 1em; background-color: #007BFF; color: white; border: none; border-radius: 4px; font-size: 1em; cursor: pointer; transition: background-color 0.3s; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        #message { text-align: center; margin-top: 1em; font-weight: bold; min-height: 1.2em; }
+        .success { color: green; }
+        .error { color: red; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Como foi sua experiência com a nossa agência?</h1>
-            <p>Olá! 😊 Queremos saber como está sendo sua experiência com o atendimento da nossa agência dos Correios. Sua opinião é essencial para melhorarmos continuamente. Leva menos de 1 minuto!</p>
-        </div>
-
-        <div class="form-content" id="formContent">
-            <form id="npsForm">
-                <!-- Pergunta 1: NPS Score -->
-                <div class="question">
-                    <label class="question-label">
-                        De 0 a 10, o quanto você recomendaria nossa agência dos Correios para um amigo ou colega?
-                        <span class="required">*</span>
-                    </label>
-                    <div class="nps-scale">
-                        <div class="nps-option">
-                            <input type="radio" id="nps0" name="nps" value="0" required>
-                            <label for="nps0">0</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps1" name="nps" value="1">
-                            <label for="nps1">1</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps2" name="nps" value="2">
-                            <label for="nps2">2</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps3" name="nps" value="3">
-                            <label for="nps3">3</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps4" name="nps" value="4">
-                            <label for="nps4">4</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps5" name="nps" value="5">
-                            <label for="nps5">5</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps6" name="nps" value="6">
-                            <label for="nps6">6</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps7" name="nps" value="7">
-                            <label for="nps7">7</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps8" name="nps" value="8">
-                            <label for="nps8">8</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps9" name="nps" value="9">
-                            <label for="nps9">9</label>
-                        </div>
-                        <div class="nps-option">
-                            <input type="radio" id="nps10" name="nps" value="10">
-                            <label for="nps10">10</label>
-                        </div>
-                    </div>
-                    <div class="nps-labels">
-                        <span>Nada provável</span>
-                        <span>Muito provável</span>
-                    </div>
-                </div>
-
-                <!-- Pergunta 2: O que agradou -->
-                <div class="question">
-                    <label class="question-label" for="positives">
-                        O que mais te agradou no nosso atendimento?
-                    </label>
-                    <textarea 
-                        id="positives" 
-                        name="positives" 
-                        class="textarea" 
-                        placeholder="Conte-nos o que mais gostou...">
-                    </textarea>
-                </div>
-
-                <!-- Pergunta 3: Sugestões de melhoria -->
-                <div class="question">
-                    <label class="question-label" for="improvements">
-                        Existe algo que podemos melhorar para tornar sua experiência ainda melhor?
-                    </label>
-                    <textarea 
-                        id="improvements" 
-                        name="improvements" 
-                        class="textarea" 
-                        placeholder="Suas sugestões são muito importantes para nós...">
-                    </textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    Enviar Feedback
-                </button>
-            </form>
-        </div>
-
-        <div class="thank-you" id="thankYou">
-            <h2>Obrigado por compartilhar sua opinião!</h2>
-            <p>Estamos sempre buscando evoluir para te atender cada vez melhor. 💙</p>
-            <div class="team-signature">
-                <strong>Equipe AGF</strong><br>
-                <em>Go Go Go SGP 🚀</em>
+        <h1>Pesquisa de Satisfação (NPS)</h1>
+        <form id="npsForm">
+            <div class="form-group">
+                <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa empresa?</label>
+                <input type="number" id="npsScore" name="npsScore" min="0" max="10" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="pontosPositivos">Quais foram os pontos positivos?</label>
+                <textarea id="pontosPositivos" name="pontosPositivos" placeholder="Opcional"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="sugestoesMelhoria">O que podemos melhorar?</label>
+                <textarea id="sugestoesMelhoria" name="sugestoesMelhoria" placeholder="Opcional"></textarea>
+            </div>
+            <button type="submit" id="submitButton">Enviar Resposta</button>
+            <p id="message"></p>
+        </form>
     </div>
 
     <script>
-        document.getElementById('npsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Coletar dados do formulário
-            const formData = new FormData(this);
-            const npsScore = parseInt(formData.get('nps'));
-            const positives = formData.get('positives') || 'Não informado';
-            const improvements = formData.get('improvements') || 'Não informado';
-            
-            // Categorizar NPS
-            let npsCategory;
-            if (npsScore >= 9) {
-                npsCategory = 'Promotor';
-            } else if (npsScore >= 7) {
-                npsCategory = 'Neutro';
-            } else {
-                npsCategory = 'Detrator';
-            }
-            
-            // Preparar dados para envio
+        const form = document.getElementById('npsForm');
+        const submitButton = document.getElementById('submitButton');
+        const messageDiv = document.getElementById('message');
+        
+        // URL do seu webhook do Google Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec'; // <-- SUA URL JÁ ESTÁ AQUI!
+
+        form.addEventListener('submit', e => {
+            e.preventDefault(); 
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando...';
+            messageDiv.textContent = '';
+
+            const npsValue = parseInt(document.getElementById('npsScore').value);
+            let npsCategory = '';
+
+            if (npsValue >= 9) npsCategory = 'Promotor';
+            else if (npsValue >= 7) npsCategory = 'Neutro';
+            else npsCategory = 'Detrator';
+
             const data = {
-                'Data/Hora': new Date().toLocaleString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit', 
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }),
-                'NPS Score': npsScore,
-                'Pontos Positivos': positives,
-                'Sugestões de Melhoria': improvements,
+                'Data/Hora': new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+                'NPS Score': npsValue,
+                'Pontos Positivos': document.getElementById('pontosPositivos').value,
+                'Sugestões de Melhoria': document.getElementById('sugestoesMelhoria').value,
                 'Categoria NPS': npsCategory
             };
-            
-            // Enviar para Google Sheets
-            sendToGoogleSheets(data);
-        });
-        
-        function sendToGoogleSheets(data) {
-            // Mostrar loading
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Enviando...';
-            submitBtn.disabled = true;
-            
-            // ⚠️ SUBSTITUA PELA URL DO SEU WEBHOOK DO GOOGLE APPS SCRIPT
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzeEuv3V8GPmx2PCU_s6oJ4CUmtn_na28S_FCz-Hok7SXLXcmC-U6X52d3AXibmT4WF/exec';
-            
-            console.log('Enviando dados:', data);
-            
+
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // Importante para Google Apps Script
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            .then(() => {
-                console.log('Dados enviados com sucesso!');
-                // Mostrar mensagem de agradecimento
-                document.getElementById('formContent').style.display = 'none';
-                document.getElementById('thankYou').style.display = 'block';
-                
-                // Limpar formulário
-                document.getElementById('npsForm').reset();
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    messageDiv.textContent = 'Obrigado pela sua resposta!';
+                    messageDiv.className = 'success';
+                    form.reset();
+                } else {
+                    throw new Error(data.error || 'Ocorreu um erro desconhecido.');
+                }
             })
             .catch(error => {
-                console.error('Erro ao enviar:', error);
-                // Mesmo com erro, mostra agradecimento (pois pode ter funcionado)
-                document.getElementById('formContent').style.display = 'none';
-                document.getElementById('thankYou').style.display = 'block';
+                console.error('Erro no Fetch:', error);
+                messageDiv.textContent = 'Erro ao enviar. Tente novamente.';
+                messageDiv.className = 'error';
             })
             .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar Resposta';
             });
-        }
-        
-        // Botão para voltar ao formulário na tela de agradecimento
-        document.addEventListener('DOMContentLoaded', function() {
-            const thankYou = document.getElementById('thankYou');
-            const backButton = document.createElement('button');
-            backButton.textContent = 'Enviar Nova Avaliação';
-            backButton.className = 'submit-btn';
-            backButton.style.marginTop = '20px';
-            backButton.onclick = function() {
-                document.getElementById('thankYou').style.display = 'none';
-                document.getElementById('formContent').style.display = 'block';
-            };
-            thankYou.appendChild(backButton);
         });
     </script>
 </body>
