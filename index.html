@@ -18,7 +18,6 @@
         .description { color: #555; margin-bottom: 2em; font-size: 1.1em; line-height: 1.6; }
         .form-group { margin-bottom: 1.5em; text-align: left; }
         .checkbox-item, .radio-group .radio-item { display: flex; align-items: center; margin-bottom: 0.8em; }
-        /* Adicionando cursor:pointer para melhor UX */
         .checkbox-item label, .radio-group label { font-weight: normal; margin-left: 0.7em; cursor: pointer; }
         .outro-input { display: none; margin-left: 1em; padding: 0.5em; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9em; flex-grow: 1; }
         #businessQuestions { display: none; border-top: 1px solid #eee; margin-top: 2em; padding-top: 2em; }
@@ -72,10 +71,15 @@
                     <div class="checkbox-item"><input type="checkbox" id="e_nao" data-group="erps" value="Não utilizo"><label for="e_nao">Não utilizo</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="e_outro"><label for="e_outro">Outro:</label><input type="text" id="e_outro_text" class="outro-input" placeholder="Qual?"></div>
                 </div>
-                <div class="form-group radio-group">
-                    <label>Você utiliza os serviços dos Correios em todas as plataformas que vende?</label>
-                    <div class="radio-item"><input type="radio" id="usaSim" name="Usa Correios em Todas" value="Sim"><label for="usaSim">Sim</label></div>
-                    <div class="radio-item"><input type="radio" id="usaNao" name="Usa Correios em Todas" value="Não, uso outras transportadoras também"><label for="usaNao">Não, uso outras transportadoras também</label></div>
+                <!-- PERGUNTA REFORMULADA AQUI -->
+                <div class="form-group checkbox-group">
+                    <label>Para seus envios, além dos Correios, você utiliza outras transportadoras? (Marque todas que aplicam)</label>
+                    <div class="checkbox-item"><input type="checkbox" id="t_jadlog" data-group="transportadoras" value="Jadlog"><label for="t_jadlog">Jadlog</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="t_loggi" data-group="transportadoras" value="Loggi"><label for="t_loggi">Loggi</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="t_azul" data-group="transportadoras" value="Azul Cargo Express"><label for="t_azul">Azul Cargo Express</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="t_local" data-group="transportadoras" value="Transportadora Local / Motoboy"><label for="t_local">Transportadora Local / Motoboy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="t_somente" data-group="transportadoras" value="Utilizo somente os Correios"><label for="t_somente">Utilizo somente os Correios</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="t_outro"><label for="t_outro">Outra:</label><input type="text" id="t_outro_text" class="outro-input" placeholder="Qual?"></div>
                 </div>
                 <div class="form-group">
                     <label for="enviosMes">Qual sua média de envios mensais pelos Correios?</label>
@@ -97,6 +101,7 @@
     </div>
     <script>
         const form = document.getElementById('businessForm');
+        // SUA URL ESTÁ CORRETA AQUI
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw0pWdiR7XwPD_a_chM8AcCbxGaIxWOY_Nowc2PnC2xBD3ha2te2LNdPY4TSlowcLr5ug/exec';
 
         document.querySelectorAll('input[name="Vende Online"]').forEach(radio => {
@@ -114,6 +119,7 @@
         setupOutroField('p_outro', 'p_outro_text');
         setupOutroField('m_outro', 'm_outro_text');
         setupOutroField('e_outro', 'e_outro_text');
+        setupOutroField('t_outro', 't_outro_text'); // Adicionado para a nova pergunta
         
         form.addEventListener('submit', e => {
             e.preventDefault();
@@ -123,7 +129,6 @@
             submitButton.textContent = 'Enviando...';
             messageDiv.textContent = '';
             
-            // Lógica de coleta de dados simplificada e corrigida
             const formData = new FormData();
             formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
             formData.append('Nome do Cliente', document.getElementById('nomeCliente').value);
@@ -136,7 +141,7 @@
                     const values = Array.from(document.querySelectorAll(`input[data-group="${groupName}"]:checked`)).map(cb => cb.value);
                     const outroCb = document.getElementById(outroCbId);
                     const outroText = document.getElementById(outroTextId).value.trim();
-                    if (outroCb.checked && outroText) {
+                    if (outroCb && outroCb.checked && outroText) {
                         values.push(`Outra: ${outroText}`);
                     }
                     return values.join(', ') || 'Nenhuma opção selecionada';
@@ -145,9 +150,9 @@
                 formData.append('Plataformas', getCheckboxData('plataformas', 'p_outro', 'p_outro_text'));
                 formData.append('Marketplaces', getCheckboxData('marketplaces', 'm_outro', 'm_outro_text'));
                 formData.append('ERPs', getCheckboxData('erps', 'e_outro', 'e_outro_text'));
+                // Coletando dados da nova pergunta de transportadoras
+                formData.append('Outras Transportadoras', getCheckboxData('transportadoras', 't_outro', 't_outro_text'));
 
-                const usaCorreiosRadio = document.querySelector('input[name="Usa Correios em Todas"]:checked');
-                formData.append('Usa Correios em Todas', usaCorreiosRadio ? usaCorreiosRadio.value : '');
                 formData.append('Envios por Mês', document.getElementById('enviosMes').value);
                 formData.append('Importância dos Correios', document.getElementById('importancia').value);
                 formData.append('Sugestões', document.getElementById('sugestoes').value);
@@ -155,7 +160,7 @@
 
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
-                    if (!response.ok) throw new Error('Falha na resposta da rede');
+                    if (!response.ok) return response.text().then(text => { throw new Error(text || 'Falha na resposta da rede') });
                     return response.json();
                 })
                 .then(data => {
@@ -164,7 +169,7 @@
                         messageDiv.className = 'success';
                         form.reset();
                         document.getElementById('businessQuestions').style.display = 'none';
-                        ['p_outro_text', 'm_outro_text', 'e_outro_text'].forEach(id => document.getElementById(id).style.display = 'none');
+                        ['p_outro_text', 'm_outro_text', 'e_outro_text', 't_outro_text'].forEach(id => document.getElementById(id).style.display = 'none');
                     } else { throw new Error(data.message || 'Erro desconhecido retornado pelo script'); }
                 })
                 .catch(error => {
