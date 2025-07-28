@@ -51,6 +51,7 @@
                 </div>
             </div>
 
+            <!-- Bloco de Perguntas de Negócio (só aparece se a resposta for "Sim") -->
             <div id="businessQuestions">
                 <div class="form-group checkbox-group">
                     <label>Quais plataformas de e-commerce você utiliza?</label>
@@ -111,8 +112,8 @@
         const businessQuestionsDiv = document.getElementById('businessQuestions');
         const vendeOnlineRadios = document.querySelectorAll('input[name="Vende Online"]');
         
-        // COLE A SUA NOVA URL DO SCRIPT AQUI
-        const scriptURL = 'SUA_NOVA_URL_AQUI'; 
+        // SUA NOVA URL ESTÁ AQUI
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw0pWdiR7XwPD_a_chM8AcCbxGaIxWOY_Nowc2PnC2xBD3ha2te2LNdPY4TSlowcLr5ug/exec'; 
 
         vendeOnlineRadios.forEach(radio => {
             radio.addEventListener('change', (event) => {
