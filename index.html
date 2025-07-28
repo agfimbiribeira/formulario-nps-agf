@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NPS - AGF BAIRRO IMBIRIBEIRA</title>
+    <title>Pesquisa de Negócios - AGF BAIRRO IMBIRIBEIRA</title>
     <style>
         :root {
             --cor-azul-correios: #00416B;
@@ -12,55 +12,18 @@
             --cor-amarelo-hover: #e6c200;
             --cor-fundo: #f0f2f5;
         }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--cor-fundo);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 1em;
-            box-sizing: border-box;
-        }
-        .container {
-            background: white;
-            padding: 2.5em;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 550px;
-            text-align: center;
-        }
-        h1 { 
-            color: var(--cor-azul-correios); 
-            font-size: 1.8em; 
-            margin-top: 0; 
-            margin-bottom: 0.5em; 
-        }
-        /* Estilo para a nova descrição */
-        .description { 
-            color: #555; 
-            margin-bottom: 2em; 
-            font-size: 1.1em;
-            line-height: 1.6; /* Melhora a legibilidade do parágrafo */
-        }
-        .form-group { 
-            margin-bottom: 1.5em; 
-            text-align: left; 
-        }
-        #feedbackContainer {
-            margin-bottom: 1.5em; /* Garante o espaçamento antes do botão */
-        }
-        .feedback-question { text-align: left; overflow: hidden; max-height: 0; opacity: 0; transition: all 0.5s ease-in-out; margin-bottom: 0; }
-        .feedback-question.visible { max-height: 500px; opacity: 1; margin-bottom: 1.5em; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--cor-fundo); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 1em; box-sizing: border-box; }
+        .container { background: white; padding: 2.5em; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); width: 100%; max-width: 600px; text-align: center; }
+        h1 { color: var(--cor-azul-correios); font-size: 1.8em; margin-top: 0; margin-bottom: 0.5em; }
+        .description { color: #555; margin-bottom: 2em; font-size: 1.1em; line-height: 1.6; }
+        .form-group { margin-bottom: 1.5em; text-align: left; }
+        .checkbox-group label, .radio-group label { font-weight: normal; margin-left: 0.5em; }
+        .checkbox-group div, .radio-group div { margin-bottom: 0.5em; }
+        #businessQuestions { display: none; border-top: 1px solid #eee; margin-top: 2em; padding-top: 2em; }
         label { display: block; margin-bottom: 0.7em; font-weight: 600; color: #333; }
-        input[type="number"], textarea { width: 100%; padding: 0.9em; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; transition: all 0.3s; }
-        input[type="number"]:focus, textarea:focus { border-color: var(--cor-azul-claro-correios); box-shadow: 0 0 0 3px rgba(0, 131, 202, 0.25); outline: none; }
-        textarea { resize: vertical; min-height: 100px; display: none; }
-        button { width: 100%; padding: 1em; background-color: var(--cor-amarelo-correios); color: var(--cor-azul-correios); border: none; border-radius: 6px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        input[type="text"], input[type="number"], select, textarea { width: 100%; padding: 0.9em; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
+        button { width: 100%; padding: 1em; margin-top: 1.5em; background-color: var(--cor-amarelo-correios); color: var(--cor-azul-correios); border: none; border-radius: 6px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s; }
         button:hover { background-color: var(--cor-amarelo-hover); transform: translateY(-2px); }
-        button:disabled { background-color: #ccc; color: #666; cursor: not-allowed; transform: none; }
         #message { text-align: center; margin-top: 1.5em; font-weight: bold; min-height: 1.2em; font-size: 1.1em; }
         .success { color: #28a745; }
         .error { color: #dc3545; }
@@ -68,77 +31,125 @@
 </head>
 <body>
     <div class="container">
-        <!-- TEXTOS ATUALIZADOS AQUI -->
-        <h1>Como foi sua experiência com a nossa agência?</h1>
-        <p class="description">Olá! 😊 Queremos saber como foi sua experiência com o atendimento da <strong>AGF Bairro Imbiribeira</strong>. Sua opinião é essencial para melhorarmos continuamente. Leva menos de 1 minuto!</p>
+        <h1>Vamos conhecer melhor o seu negócio?</h1>
+        <p class="description">Olá! 😊 Para oferecermos um serviço ainda melhor, queremos entender suas necessidades. Leva só 2 minutinhos!</p>
         
-        <form id="npsForm">
+        <form id="businessForm">
             <div class="form-group">
-                <label for="npsScore">De 0 a 10, qual a probabilidade de você recomendar nossa agência?</label>
-                <input type="number" id="npsScore" name="NPS Score" min="0" max="10" required>
+                <label for="nomeCliente">Seu nome ou nome da empresa:</label>
+                <input type="text" id="nomeCliente" name="Nome do Cliente" required>
             </div>
-            <div id="feedbackContainer">
-                <div id="detractorQuestion" class="feedback-question"><label for="feedbackText">Lamentamos não ter atingido suas expectativas. Para nos ajudar a corrigir, qual foi o principal motivo da sua nota?</label></div>
-                <div id="neutralQuestion" class="feedback-question"><label for="feedbackText">Agradecemos seu feedback! O que poderíamos ter feito para que sua experiência fosse um 10?</label></div>
-                <div id="promoterQuestion" class="feedback-question"><label for="feedbackText">Ficamos muito felizes com a sua nota! O que mais te agradou em sua visita?</label></div>
-                <textarea id="feedbackText" name="Feedback"></textarea>
+            <div class="form-group radio-group">
+                <label>Você vende produtos online?</label>
+                <div>
+                    <input type="radio" id="vendeSim" name="Vende Online" value="Sim" required>
+                    <label for="vendeSim">Sim</label>
+                </div>
+                <div>
+                    <input type="radio" id="vendeNao" name="Vende Online" value="Não">
+                    <label for="vendeNao">Não</label>
+                </div>
             </div>
+
+            <div id="businessQuestions">
+                <div class="form-group checkbox-group">
+                    <label>Quais plataformas de e-commerce você utiliza?</label>
+                    <div><input type="checkbox" id="p_shopify" name="Plataformas" value="Shopify"><label for="p_shopify">Shopify</label></div>
+                    <div><input type="checkbox" id="p_nuvemshop" name="Plataformas" value="Nuvemshop"><label for="p_nuvemshop">Nuvemshop</label></div>
+                    <div><input type="checkbox" id="p_loja" name="Plataformas" value="Loja Integrada"><label for="p_loja">Loja Integrada</label></div>
+                    <div><input type="checkbox" id="p_woo" name="Plataformas" value="WooCommerce"><label for="p_woo">WooCommerce</label></div>
+                    <div><input type="checkbox" id="p_outro" name="Plataformas" value="Outra"><label for="p_outro">Outra</label></div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>E marketplaces, você vende em algum destes?</label>
+                    <div><input type="checkbox" id="m_meli" name="Marketplaces" value="Mercado Livre"><label for="m_meli">Mercado Livre</label></div>
+                    <div><input type="checkbox" id="m_amazon" name="Marketplaces" value="Amazon"><label for="m_amazon">Amazon</label></div>
+                    <div><input type="checkbox" id="m_magalu" name="Marketplaces" value="Magalu"><label for="m_magalu">Magalu</label></div>
+                    <div><input type="checkbox" id="m_shopee" name="Marketplaces" value="Shopee"><label for="m_shopee">Shopee</label></div>
+                    <div><input type="checkbox" id="m_outro" name="Marketplaces" value="Outro"><label for="m_outro">Outro</label></div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>Você utiliza algum sistema de gestão (ERP)?</label>
+                    <div><input type="checkbox" id="e_bling" name="ERPs" value="Bling"><label for="e_bling">Bling</label></div>
+                    <div><input type="checkbox" id="e_tiny" name="ERPs" value="TinyERP"><label for="e_tiny">TinyERP</label></div>
+                    <div><input type="checkbox" id="e_outro" name="ERPs" value="Outro"><label for="e_outro">Outro</label></div>
+                    <div><input type="checkbox" id="e_nao" name="ERPs" value="Não utilizo"><label for="e_nao">Não utilizo</label></div>
+                </div>
+                <div class="form-group radio-group">
+                    <label>Você utiliza os serviços dos Correios em todas as plataformas que vende?</label>
+                    <div><input type="radio" id="usaSim" name="Usa Correios em Todas" value="Sim"><label for="usaSim">Sim</label></div>
+                    <div><input type="radio" id="usaNao" name="Usa Correios em Todas" value="Não"><label for="usaNao">Não, uso outras transportadoras também</label></div>
+                </div>
+                <div class="form-group">
+                    <label for="enviosMes">Qual sua média de envios mensais pelos Correios?</label>
+                    <select id="enviosMes" name="Envios por Mês">
+                        <option value="1-10">1 a 10</option>
+                        <option value="11-50">11 a 50</option>
+                        <option value="51-100">51 a 100</option>
+                        <option value="101-500">101 a 500</option>
+                        <option value="Mais de 500">Mais de 500</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="importancia">De 0 a 10, qual a importância dos Correios para o seu negócio?</label>
+                    <input type="number" id="importancia" name="Importância dos Correios" min="0" max="10">
+                </div>
+                <div class="form-group">
+                    <label for="sugestoes">Tem alguma sugestão ou serviço que gostaria que oferecêssemos?</label>
+                    <textarea id="sugestoes" name="Sugestões"></textarea>
+                </div>
+            </div>
+
             <button type="submit" id="submitButton">Enviar Resposta</button>
             <p id="message"></p>
         </form>
     </div>
     <script>
-        const form = document.getElementById('npsForm');
-        const npsScoreInput = document.getElementById('npsScore');
+        const form = document.getElementById('businessForm');
         const submitButton = document.getElementById('submitButton');
         const messageDiv = document.getElementById('message');
-        const detractorDiv = document.getElementById('detractorQuestion');
-        const neutralDiv = document.getElementById('neutralQuestion');
-        const promoterDiv = document.getElementById('promoterQuestion');
-        const feedbackTextarea = document.getElementById('feedbackText');
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxkRXyBMcjeM3yUar151pCdPIM3ilmiKqsKhX-79HeMu6CT1gbQ-SpTe6iwduCWosBq1w/exec'; 
+        const businessQuestionsDiv = document.getElementById('businessQuestions');
+        const vendeOnlineRadios = document.querySelectorAll('input[name="Vende Online"]');
+        
+        // COLE A SUA NOVA URL DO SCRIPT AQUI
+        const scriptURL = 'SUA_NOVA_URL_AQUI'; 
 
-        npsScoreInput.addEventListener('change', () => {
-            const score = parseInt(npsScoreInput.value);
-            detractorDiv.classList.remove('visible');
-            neutralDiv.classList.remove('visible');
-            promoterDiv.classList.remove('visible');
-            feedbackTextarea.style.display = 'none';
-            if (score >= 0 && score <= 10) {
-                feedbackTextarea.style.display = 'block';
-                if (score <= 6) { detractorDiv.classList.add('visible'); } 
-                else if (score <= 8) { neutralDiv.classList.add('visible'); } 
-                else { promoterDiv.classList.add('visible'); }
-            }
+        vendeOnlineRadios.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                if (event.target.value === 'Sim') {
+                    businessQuestionsDiv.style.display = 'block';
+                } else {
+                    businessQuestionsDiv.style.display = 'none';
+                }
+            });
         });
+
         form.addEventListener('submit', e => {
             e.preventDefault();
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
-            messageDiv.textContent = '';
+            
             const formData = new FormData(form);
-            const npsValue = npsScoreInput.value;
-            let npsCategory = '';
-            if (npsValue >= 9) npsCategory = 'Promotor';
-            else if (npsValue >= 7) npsCategory = 'Neutro';
-            else npsCategory = 'Detrator';
+            const plataformas = Array.from(document.querySelectorAll('input[name="Plataformas"]:checked')).map(cb => cb.value).join(', ');
+            const marketplaces = Array.from(document.querySelectorAll('input[name="Marketplaces"]:checked')).map(cb => cb.value).join(', ');
+            const erps = Array.from(document.querySelectorAll('input[name="ERPs"]:checked')).map(cb => cb.value).join(', ');
+
+            formData.set('Plataformas', plataformas);
+            formData.set('Marketplaces', marketplaces);
+            formData.set('ERPs', erps);
             formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-            formData.append('Categoria NPS', npsCategory);
+            
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.result === 'success') {
-                        messageDiv.textContent = 'Obrigado pela sua resposta!';
+                    if(data.result === 'success'){
+                        messageDiv.textContent = 'Obrigado por suas respostas!';
                         messageDiv.className = 'success';
                         form.reset();
-                        detractorDiv.classList.remove('visible');
-                        neutralDiv.classList.remove('visible');
-                        promoterDiv.classList.remove('visible');
-                        feedbackTextarea.style.display = 'none';
-                    } else { throw new Error(data.message || 'Erro desconhecido.'); }
+                        businessQuestionsDiv.style.display = 'none';
+                    } else { throw new Error(data.message || 'Erro desconhecido'); }
                 })
                 .catch(error => {
-                    console.error('Erro:', error);
                     messageDiv.textContent = 'Erro ao enviar. Tente novamente.';
                     messageDiv.className = 'error';
                 })
