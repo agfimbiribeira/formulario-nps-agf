@@ -53,7 +53,6 @@
                     <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="Nuvemshop"><label>Nuvemshop</label></div>
                     <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="Loja Integrada"><label>Loja Integrada</label></div>
                     <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="WooCommerce"><label>WooCommerce</label></div>
-                    <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="TikTok Shop"><label>TikTok Shop</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="p_outro"><label>Outra:</label><input type="text" id="p_outro_text" class="outro-input" placeholder="Qual?"></div>
                 </div>
                 <div class="form-group checkbox-group">
@@ -62,6 +61,7 @@
                     <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Amazon"><label>Amazon</label></div>
                     <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Magalu"><label>Magalu</label></div>
                     <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Shopee"><label>Shopee</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="TikTok Shop"><label>TikTok Shop</label></div>
                     <div class="checkbox-item"><input type="checkbox" id="m_outro"><label>Outro:</label><input type="text" id="m_outro_text" class="outro-input" placeholder="Qual?"></div>
                 </div>
                 <div class="form-group checkbox-group">
@@ -126,15 +126,12 @@
             
             const formData = new FormData();
             
-            // Adiciona campos de texto simples
             formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
             formData.append('Nome do Cliente', document.getElementById('nomeCliente').value);
             const vendeOnlineRadio = document.querySelector('input[name="Vende Online"]:checked');
             formData.append('Vende Online', vendeOnlineRadio ? vendeOnlineRadio.value : '');
 
-            // Processa campos de negócio somente se vende online
             if (vendeOnlineRadio && vendeOnlineRadio.value === 'Sim') {
-                // Função auxiliar para coletar os valores dos checkboxes
                 const getCheckboxValues = (groupName, outroCbId, outroTextId) => {
                     const values = Array.from(document.querySelectorAll(`input[data-group="${groupName}"]:checked`)).map(cb => cb.value);
                     const outroCb = document.getElementById(outroCbId);
