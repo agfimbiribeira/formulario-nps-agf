@@ -26,35 +26,104 @@
         button { width: 100%; padding: 1em; margin-top: 1.5em; background-color: var(--cor-amarelo-correios); color: var(--cor-azul-correios); border: none; border-radius: 6px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s; }
         button:hover { background-color: var(--cor-amarelo-hover); transform: translateY(-2px); }
         #message { text-align: center; margin-top: 1.5em; font-weight: bold; min-height: 1.2em; font-size: 1.1em; }
-        .success { color: #28a745; } .error { color: #dc3545; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Vamos conhecer melhor o seu negócio?</h1>
         <p class="description">Olá! 😊 Para oferecermos um serviço ainda melhor, queremos entender suas necessidades. Leva só 2 minutinhos!</p>
-        <form id="businessForm">
-            <div class="form-group"><label for="nomeCliente">Seu nome ou nome da empresa:</label><input type="text" id="nomeCliente" name="Nome do Cliente" required></div>
-            <div class="form-group radio-group"><label>Você vende produtos online?</label><div class="radio-item"><input type="radio" id="vendeSim" name="Vende Online" value="Sim" required><label for="vendeSim">Sim</label></div><div class="radio-item"><input type="radio" id="vendeNao" name="Vende Online" value="Não"><label for="vendeNao">Não</label></div></div>
-            <div id="businessQuestions">
-                <div class="form-group checkbox-group"><label>Quais plataformas de e-commerce você utiliza?</label><div class="checkbox-item"><input type="checkbox" id="p_shopify" data-group="plataformas" value="Shopify"><label for="p_shopify">Shopify</label></div><div class="checkbox-item"><input type="checkbox" id="p_nuvemshop" data-group="plataformas" value="Nuvemshop"><label for="p_nuvemshop">Nuvemshop</label></div><div class="checkbox-item"><input type="checkbox" id="p_loja" data-group="plataformas" value="Loja Integrada"><label for="p_loja">Loja Integrada</label></div><div class="checkbox-item"><input type="checkbox" id="p_woo" data-group="plataformas" value="WooCommerce"><label for="p_woo">WooCommerce</label></div><div class="checkbox-item"><input type="checkbox" id="p_outro"><label for="p_outro">Outra:</label><input type="text" id="p_outro_text" class="outro-input" placeholder="Qual?"></div></div>
-                <div class="form-group checkbox-group"><label>E marketplaces, você vende em algum destes?</label><div class="checkbox-item"><input type="checkbox" id="m_meli" data-group="marketplaces" value="Mercado Livre"><label for="m_meli">Mercado Livre</label></div><div class="checkbox-item"><input type="checkbox" id="m_amazon" data-group="marketplaces" value="Amazon"><label for="m_amazon">Amazon</label></div><div class="checkbox-item"><input type="checkbox" id="m_magalu" data-group="marketplaces" value="Magalu"><label for="m_magalu">Magalu</label></div><div class="checkbox-item"><input type="checkbox" id="m_shopee" data-group="marketplaces" value="Shopee"><label for="m_shopee">Shopee</label></div><div class="checkbox-item"><input type="checkbox" id="m_tiktok" data-group="marketplaces" value="TikTok Shop"><label for="m_tiktok">TikTok Shop</label></div><div class="checkbox-item"><input type="checkbox" id="m_outro"><label for="m_outro">Outro:</label><input type="text" id="m_outro_text" class="outro-input" placeholder="Qual?"></div></div>
-                <div class="form-group checkbox-group"><label>Você utiliza algum sistema de gestão (ERP)?</label><div class="checkbox-item"><input type="checkbox" id="e_bling" data-group="erps" value="Bling"><label for="e_bling">Bling</label></div><div class="checkbox-item"><input type="checkbox" id="e_tiny" data-group="erps" value="TinyERP"><label for="e_tiny">TinyERP</label></div><div class="checkbox-item"><input type="checkbox" id="e_nao" data-group="erps" value="Não utilizo"><label for="e_nao">Não utilizo</label></div><div class="checkbox-item"><input type="checkbox" id="e_outro"><label for="e_outro">Outro:</label><input type="text" id="e_outro_text" class="outro-input" placeholder="Qual?"></div></div>
-                <div class="form-group checkbox-group"><label>Para seus envios, além dos Correios, você utiliza outras transportadoras?</label><div class="checkbox-item"><input type="checkbox" id="t_jadlog" data-group="transportadoras" value="Jadlog"><label for="t_jadlog">Jadlog</label></div><div class="checkbox-item"><input type="checkbox" id="t_loggi" data-group="transportadoras" value="Loggi"><label for="t_loggi">Loggi</label></div><div class="checkbox-item"><input type="checkbox" id="t_azul" data-group="transportadoras" value="Azul Cargo Express"><label for="t_azul">Azul Cargo Express</label></div><div class="checkbox-item"><input type="checkbox" id="t_local" data-group="transportadoras" value="Transportadora Local / Motoboy"><label for="t_local">Transportadora Local / Motoboy</label></div><div class="checkbox-item"><input type="checkbox" id="t_somente" data-group="transportadoras" value="Utilizo somente os Correios"><label for="t_somente">Utilizo somente os Correios</label></div><div class="checkbox-item"><input type="checkbox" id="t_outro"><label for="t_outro">Outra:</label><input type="text" id="t_outro_text" class="outro-input" placeholder="Qual?"></div></div>
-                <div class="form-group"><label for="enviosMes">Qual sua média de envios mensais pelos Correios?</label><select id="enviosMes" name="Envios por Mês"><option value="" disabled selected>Selecione uma faixa</option><option value="1-10">1 a 10</option><option value="11-50">11 a 50</option><option value="51-100">51 a 100</option><option value="101-500">101 a 500</option><option value="Mais de 500">Mais de 500</option></select></div>
-                <div class="form-group"><label for="importancia">De 0 a 10, qual a importância dos Correios para o seu negócio?</label><input type="number" id="importancia" name="Importância dos Correios" min="0" max="10"></div>
-                <div class="form-group"><label for="sugestoes">Tem alguma sugestão ou serviço que gostaria que oferecêssemos?</label><textarea id="sugestoes" name="Sugestões"></textarea></div>
+        
+        <form id="businessForm" novalidate>
+            <div class="form-group">
+                <label for="nomeCliente">Seu nome ou nome da empresa:</label>
+                <input type="text" id="nomeCliente" name="Nome do Cliente" required>
             </div>
-            <button type="submit" id="submitButton">Enviar Resposta</button><p id="message"></p>
+            <div class="form-group radio-group">
+                <label>Você vende produtos online?</label>
+                <div class="radio-item"><input type="radio" id="vendeSim" name="Vende Online" value="Sim" required><label for="vendeSim">Sim</label></div>
+                <div class="radio-item"><input type="radio" id="vendeNao" name="Vende Online" value="Não"><label for="vendeNao">Não</label></div>
+            </div>
+
+            <div id="businessQuestions">
+                <div class="form-group checkbox-group">
+                    <label>Quais plataformas de e-commerce você utiliza? (obrigatório)</label>
+                    <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="Shopify"><label for="p_shopify">Shopify</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="Nuvemshop"><label for="p_nuvemshop">Nuvemshop</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="Loja Integrada"><label for="p_loja">Loja Integrada</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="plataformas" value="WooCommerce"><label for="p_woo">WooCommerce</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="p_outro"><label for="p_outro">Outra:</label><input type="text" id="p_outro_text" class="outro-input" placeholder="Qual?"></div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>E marketplaces, você vende em algum destes? (obrigatório)</label>
+                    <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Mercado Livre"><label for="m_meli">Mercado Livre</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Amazon"><label for="m_amazon">Amazon</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Magalu"><label for="m_magalu">Magalu</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="Shopee"><label for="m_shopee">Shopee</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="marketplaces" value="TikTok Shop"><label for="m_tiktok">TikTok Shop</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="m_outro"><label for="m_outro">Outro:</label><input type="text" id="m_outro_text" class="outro-input" placeholder="Qual?"></div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>Você utiliza algum sistema de gestão (ERP)? (obrigatório)</label>
+                    <div class="checkbox-item"><input type="checkbox" data-group="erps" value="Bling"><label for="e_bling">Bling</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="erps" value="TinyERP"><label for="e_tiny">TinyERP</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="erps" value="Não utilizo"><label for="e_nao">Não utilizo</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="e_outro"><label for="e_outro">Outro:</label><input type="text" id="e_outro_text" class="outro-input" placeholder="Qual?"></div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>Para seus envios, além dos Correios, você utiliza outras transportadoras? (obrigatório)</label>
+                    <div class="checkbox-item"><input type="checkbox" data-group="transportadoras" value="Jadlog"><label for="t_jadlog">Jadlog</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="transportadoras" value="Loggi"><label for="t_loggi">Loggi</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="transportadoras" value="Azul Cargo Express"><label for="t_azul">Azul Cargo Express</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="transportadoras" value="Transportadora Local / Motoboy"><label for="t_local">Transportadora Local / Motoboy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" data-group="transportadoras" value="Utilizo somente os Correios"><label for="t_somente">Utilizo somente os Correios</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="t_outro"><label for="t_outro">Outra:</label><input type="text" id="t_outro_text" class="outro-input" placeholder="Qual?"></div>
+                </div>
+                <div class="form-group">
+                    <label for="enviosMes">Qual sua média de envios mensais pelos Correios?</label>
+                    <select id="enviosMes" name="Envios por Mês" required><option value="" disabled selected>Selecione uma faixa</option><option value="1-10">1 a 10</option><option value="11-50">11 a 50</option><option value="51-100">51 a 100</option><option value="101-500">101 a 500</option><option value="Mais de 500">Mais de 500</option></select>
+                </div>
+                <!-- PERGUNTA REFORMULADA AQUI -->
+                <div class="form-group">
+                    <label for="shareCorreios">Do total de seus envios, qual parte é feita pelos Correios?</label>
+                    <select id="shareCorreios" name="Share dos Correios" required>
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="Todos os meus envios (100%)">Todos os meus envios (100%)</option>
+                        <option value="A grande maioria (mais de 75%)">A grande maioria (mais de 75%)</option>
+                        <option value="Cerca da metade (entre 25% e 75%)">Cerca da metade (entre 25% e 75%)</option>
+                        <option value="Uma pequena parte (menos de 25%)">Uma pequena parte (menos de 25%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sugestoes">Tem alguma sugestão ou serviço que gostaria que oferecêssemos? (opcional)</label>
+                    <textarea id="sugestoes" name="Sugestões"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" id="submitButton">Enviar Resposta</button>
+            <p id="message"></p>
         </form>
     </div>
     <script>
         const form = document.getElementById('businessForm');
-        // SUA NOVA URL ESTÁ CORRETAMENTE INSERIDA AQUI
+        // A sua URL mais recente está aqui. Não é preciso alterá-la.
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwPoGmreKPabOftxAgt2Jx1xJmCdGs45N_2Sn7V3G2xc49KuAlaJvQ395EagqFF_k9NbQ/exec';
 
-        document.querySelectorAll('input[name="Vende Online"]').forEach(radio => radio.addEventListener('change', e => { document.getElementById('businessQuestions').style.display = e.target.value === 'Sim' ? 'block' : 'none'; }));
-        const setupOutroField = (cbId, txtId) => document.getElementById(cbId).addEventListener('change', e => { document.getElementById(txtId).style.display = e.target.checked ? 'block' : 'none'; if (!e.target.checked) document.getElementById(txtId).value = ''; });
+        document.querySelectorAll('input[name="Vende Online"]').forEach(radio => {
+            radio.addEventListener('change', event => {
+                document.getElementById('businessQuestions').style.display = event.target.value === 'Sim' ? 'block' : 'none';
+            });
+        });
+
+        function setupOutroField(checkboxId, textFieldId) {
+            const checkbox = document.getElementById(checkboxId);
+            const textField = document.getElementById(textFieldId);
+            checkbox.addEventListener('change', (e) => {
+                textField.style.display = e.target.checked ? 'block' : 'none';
+                if (!e.target.checked) textField.value = '';
+            });
+        }
         setupOutroField('p_outro', 'p_outro_text');
         setupOutroField('m_outro', 'm_outro_text');
         setupOutroField('e_outro', 'e_outro_text');
@@ -64,13 +133,24 @@
             e.preventDefault();
             const submitButton = document.getElementById('submitButton');
             const messageDiv = document.getElementById('message');
+            
+            // Lógica de validação
+            if (document.querySelector('input[name="Vende Online"]:checked')?.value === 'Sim') {
+                const checkGroup = (groupName) => document.querySelectorAll(`input[data-group="${groupName}"]:checked, input#${groupName.slice(0,1)}_outro:checked`).length > 0;
+                
+                if (!checkGroup('plataformas')) { alert('Por favor, selecione ao menos uma opção em "Plataformas de e-commerce".'); return; }
+                if (!checkGroup('marketplaces')) { alert('Por favor, selecione ao menos uma opção em "Marketplaces".'); return; }
+                if (!checkGroup('erps')) { alert('Por favor, selecione ao menos uma opção em "Sistema de gestão (ERP)".'); return; }
+                if (!checkGroup('transportadoras')) { alert('Por favor, selecione ao menos uma opção em "Outras Transportadoras".'); return; }
+                if (document.getElementById('enviosMes').value === '') { alert('Por favor, selecione a faixa de envios mensais.'); return; }
+                if (document.getElementById('shareCorreios').value === '') { alert('Por favor, selecione qual parte dos seus envios é feita pelos Correios.'); return; }
+            }
+
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
             messageDiv.textContent = '';
             
             const formData = new FormData();
-            
-            // É mais seguro construir o FormData do zero para garantir a ordem e os dados corretos
             formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
             formData.append('Nome do Cliente', document.getElementById('nomeCliente').value);
             const vendeOnlineValue = document.querySelector('input[name="Vende Online"]:checked')?.value || '';
@@ -81,9 +161,7 @@
                     const values = Array.from(document.querySelectorAll(`input[data-group="${groupName}"]:checked`)).map(cb => cb.value);
                     const outroCb = document.getElementById(outroCbId);
                     const outroTxt = document.getElementById(outroTxtId).value.trim();
-                    if (outroCb && outroCb.checked && outroTxt) {
-                        values.push(`Outra: ${outroTxt}`);
-                    }
+                    if (outroCb && outroCb.checked && outroTxt) { values.push(`Outra: ${outroTxt}`); }
                     return values.join(', ');
                 };
                 
@@ -93,7 +171,7 @@
                 formData.append('Outras Transportadoras', getCheckboxData('transportadoras', 't_outro', 't_outro_text'));
 
                 formData.append('Envios por Mês', document.getElementById('enviosMes').value);
-                formData.append('Importância dos Correios', document.getElementById('importancia').value);
+                formData.append('Share dos Correios', document.getElementById('shareCorreios').value);
                 formData.append('Sugestões', document.getElementById('sugestoes').value);
             }
 
@@ -108,10 +186,7 @@
                         messageDiv.className = 'success';
                         form.reset();
                         document.getElementById('businessQuestions').style.display = 'none';
-                        ['p_outro_text', 'm_outro_text', 'e_outro_text', 't_outro_text'].forEach(id => {
-                            const el = document.getElementById(id);
-                            if(el) el.style.display = 'none';
-                        });
+                        ['p_outro_text', 'm_outro_text', 'e_outro_text', 't_outro_text'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
                     } else { throw new Error(data.message || 'Erro desconhecido retornado pelo script'); }
                 })
                 .catch(error => {
