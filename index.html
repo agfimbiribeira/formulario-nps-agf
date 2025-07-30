@@ -104,7 +104,7 @@
     </div>
     <script>
         const form = document.getElementById('businessForm');
-        // SUA NOVA E CORRETA URL ESTÁ AQUI
+        // Sua URL já está aqui. Não precisa alterar.
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxUloSAtBjSwVVQcZisSdpXkipFB5aBuXli4ZHtUbZ7VyIsdhc6nPG5zirddoGjNESr3w/exec';
 
         document.querySelectorAll('input[name="Vende Online"]').forEach(radio => {
@@ -163,15 +163,18 @@
             messageDiv.textContent = '';
             
             const formData = new FormData(form);
-            const getCheckboxData = (groupName, outroCbId, outroTxtId) => {
-                const values = Array.from(document.querySelectorAll(`input[data-group="${groupName}"]:checked`)).map(cb => cb.value);
-                const outroCb = document.getElementById(outroCbId);
-                const outroTxt = document.getElementById(outroTxtId).value.trim();
-                if (outroCb && outroCb.checked && outroTxt) { values.push(`Outra: ${outroTxt}`); }
-                return values.join(', ');
-            };
+            // LINHA CORRIGIDA: Adicionando a Data/Hora novamente ao pacote de dados.
+            formData.append('Data/Hora', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
             
             if (vendeOnlineRadio.value === 'Sim') {
+                const getCheckboxData = (groupName, outroCbId, outroTxtId) => {
+                    const values = Array.from(document.querySelectorAll(`input[data-group="${groupName}"]:checked`)).map(cb => cb.value);
+                    const outroCb = document.getElementById(outroCbId);
+                    const outroTxt = document.getElementById(outroTxtId).value.trim();
+                    if (outroCb && outroCb.checked && outroTxt) { values.push(`Outra: ${outroTxt}`); }
+                    return values.join(', ');
+                };
+                
                 formData.set('Plataformas', getCheckboxData('plataformas', 'p_outro', 'p_outro_text'));
                 formData.set('Marketplaces', getCheckboxData('marketplaces', 'm_outro', 'm_outro_text'));
                 formData.set('ERPs', getCheckboxData('erps', 'e_outro', 'e_outro_text'));
